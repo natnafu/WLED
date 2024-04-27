@@ -298,6 +298,25 @@ void WLED::setup()
   pinMode(hardwareRX, INPUT_PULLDOWN); delay(1);        // suppress noise in case RX pin is floating (at low noise energy) - see issue #3128
   #endif
   Serial.begin(115200);
+
+// LED MEDALLION MODIFICATIONS
+
+// data pin is set as LEDPIN in const.h
+#define VBAT_PIN        4
+#define WAKEUP_PIN      5
+#define LED_EN_PIN      6
+#define USB_PRES_PIN    10
+  // Setup pin modes
+  pinMode(VBAT_PIN, INPUT);
+  pinMode(WAKEUP_PIN, INPUT);
+  pinMode(LED_EN_PIN, OUTPUT);
+  pinMode(USB_PRES_PIN, INPUT);
+  // enable LED 5V regulator
+  digitalWrite(LED_EN_PIN, HIGH);
+
+  // END - LED MEDALLION MODIFICATIONS
+
+
   #if !ARDUINO_USB_CDC_ON_BOOT
   Serial.setTimeout(50);  // this causes troubles on new MCUs that have a "virtual" USB Serial (HWCDC)
   #else
@@ -635,7 +654,7 @@ bool WLED::initEthernet()
   /*
   For LAN8720 the most correct way is to perform clean reset each time before init
   applying LOW to power or nRST pin for at least 100 us (please refer to datasheet, page 59)
-  ESP_IDF > V4 implements it (150 us, lan87xx_reset_hw(esp_eth_phy_t *phy) function in 
+  ESP_IDF > V4 implements it (150 us, lan87xx_reset_hw(esp_eth_phy_t *phy) function in
   /components/esp_eth/src/esp_eth_phy_lan87xx.c, line 280)
   but ESP_IDF < V4 does not. Lets do it:
   [not always needed, might be relevant in some EMI situations at startup and for hot resets]

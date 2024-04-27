@@ -422,7 +422,7 @@
 #endif
 
 #ifndef ABL_MILLIAMPS_DEFAULT
-  #define ABL_MILLIAMPS_DEFAULT 850   // auto lower brightness to stay close to milliampere limit
+  #define ABL_MILLIAMPS_DEFAULT 1000   // auto lower brightness to stay close to milliampere limit
 #else
   #if ABL_MILLIAMPS_DEFAULT == 0      // disable ABL
   #elif ABL_MILLIAMPS_DEFAULT < 250   // make sure value is at least 250
@@ -462,7 +462,7 @@
 //this is merely a default now and can be changed at runtime
 #ifndef LEDPIN
 #if defined(ESP8266) || (defined(ARDUINO_ARCH_ESP32) && defined(WLED_USE_PSRAM)) || defined(CONFIG_IDF_TARGET_ESP32C3) || defined(ARDUINO_ESP32_PICO)
-  #define LEDPIN 2    // GPIO2 (D4) on Wemos D1 mini compatible boards, and on boards where GPIO16 is not available
+  #define LEDPIN 7    // GPIO7 (D5) on XAIO-ESP32-C3
 #else
   #define LEDPIN 16   // aligns with GPIO2 (D4) on Wemos D1 mini32 compatible boards
 #endif
@@ -477,7 +477,7 @@
 #endif
 
 #ifndef DEFAULT_LED_COUNT
-  #define DEFAULT_LED_COUNT 30
+  #define DEFAULT_LED_COUNT 249 // LED MEDALLION led count
 #endif
 
 #define INTERFACE_UPDATE_COOLDOWN 1000 // time in ms to wait between websockets, alexa, and MQTT updates
